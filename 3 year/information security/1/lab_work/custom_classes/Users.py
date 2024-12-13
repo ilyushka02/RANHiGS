@@ -1,5 +1,5 @@
 """"""
-import User as userClass
+from . import User as userClass
 from random import choice
 
 class Users:

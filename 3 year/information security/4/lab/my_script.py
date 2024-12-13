@@ -6,7 +6,7 @@ if __name__ == '__main__':
 
     # default values
     disk_def = ['E823_8FA6_BF53_0001_001B_444A_464F_BDBA.']
-    user_name_def = 'mrnas1'
+    user_name_def = 'mrnas'
     
     c = wmi.WMI()
     disk = c.Win32_PhysicalMedia()

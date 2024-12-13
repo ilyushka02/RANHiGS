@@ -1,4 +1,4 @@
-import File as fileClass
+from . import File as fileClass
 from random import choice
 
 class Files:
