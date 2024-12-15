@@ -2,6 +2,7 @@ from pathlib import Path
 # Explicit imports to satisfy Flake8
 from tkinter import Toplevel , Canvas, Button, PhotoImage
 from controller_app import swap_page, exit
+import database_connector as db_connect
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -10,13 +11,12 @@ ASSETS_PATH = OUTPUT_PATH / Path(r".\assets\frame0")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def dashboardsWindow():
+def dashboardsWindow():    
     Dashboard()
 
 class Dashboard(Toplevel):
 
     def __init__(self, *args, **kwargs):
-
         Toplevel.__init__(self, *args, **kwargs)
 
         self.title("Dashboard - СБС Банк")
@@ -228,8 +228,32 @@ class Dashboard(Toplevel):
             image=image_image_9
         )
 
+        self.canvas.create_text(
+            254.0,
+            80.0,
+            anchor="nw",
+            text=db_connect.get_count_clients(),
+            fill="#000000",
+            font=("Bitter BOLD", 40 * -1)
+        )
 
+        self.canvas.create_text(
+            482.0,
+            80.0,
+            anchor="nw",
+            text=db_connect.get_count_loans(),
+            fill="#000000",
+            font=("Bitter BOLD", 40 * -1)
+        )
 
+        self.canvas.create_text(
+            710.0,
+            80.0,
+            anchor="nw",
+            text=db_connect.get_full_sum_loans(),
+            fill="#000000",
+            font=("Bitter BOLD", 40 * -1)
+        )
 
         self.resizable(False, False)
         self.mainloop()
