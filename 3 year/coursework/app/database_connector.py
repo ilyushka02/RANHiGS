@@ -1,5 +1,5 @@
 import mysql.connector
-from ..config_db_connect import config
+from config_db_connect import config
 
 try:
     # Подключение к базе данных
