@@ -28,10 +28,27 @@ def close_connection(connection, cursor):
             connection.close()
             print("Log: MySQL connection is closed")
 
-if __name__ == "__main__":
+
+def get_count_clients():
     connection = open_connection()
     cursor = create_cursor(connection)
     cursor.execute(sql_sc.__SQL_COUNT_ORGANIZATION__)
-    a = cursor.fetchone()[0]
-    print(a)
-    close_connection(connection, cursor)
+    result = cursor.fetchone()[0]
+    close_connection(connection, cursor)    
+    return result
+
+def get_count_loans():
+    connection = open_connection()
+    cursor = create_cursor(connection)
+    cursor.execute(sql_sc.__SQL_COUNT_LOANS__)
+    result = cursor.fetchone()[0]
+    close_connection(connection, cursor)    
+    return result
+
+def get_full_sum_loans():
+    connection = open_connection()
+    cursor = create_cursor(connection)
+    cursor.execute(sql_sc.__SQL_SUM_LOANS__)
+    result = cursor.fetchone()[0]
+    close_connection(connection, cursor)    
+    return result
