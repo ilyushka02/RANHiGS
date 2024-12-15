@@ -35,9 +35,11 @@ class Dashboard(Toplevel):
         )
 
         self.canvas.place(x = 0, y = 0)
+        
         image_image_1 = PhotoImage(
             file=relative_to_assets("image_1.png"))
-        image_1 = self.canvas.create_image(
+        
+        image_1 =self.canvas.create_image(
             105.0,
             285.0,
             image=image_image_1
@@ -106,7 +108,7 @@ class Dashboard(Toplevel):
         )
         button_4.place(
             x=20.0,
-            y=228.0,
+            y=278.0,
             width=172.0,
             height=32.0
         )
@@ -123,9 +125,9 @@ class Dashboard(Toplevel):
         )
         button_5.place(
             x=20.0,
-            y=187.0,
+            y=229.0,
             width=172.0,
-            height=34.0
+            height=41.0
         )
 
         button_image_6 = PhotoImage(
@@ -140,14 +142,31 @@ class Dashboard(Toplevel):
         )
         button_6.place(
             x=20.0,
-            y=271.0,
+            y=187.0,
+            width=172.0,
+            height=34.0
+        )
+
+        button_image_7 = PhotoImage(
+            file=relative_to_assets("button_7.png"))
+        button_7 = Button(
+            self.canvas,
+            image=button_image_7,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: print("button_7 clicked"),
+            relief="flat"
+        )
+        button_7.place(
+            x=19.0,
+            y=322.0,
             width=172.0,
             height=52.0
         )
 
         image_image_2 = PhotoImage(
             file=relative_to_assets("image_2.png"))
-        image_2 = self.canvas.create_image(
+        image_2 =self.canvas.create_image(
             3.0,
             123.0,
             image=image_image_2
@@ -155,7 +174,7 @@ class Dashboard(Toplevel):
 
         image_image_3 = PhotoImage(
             file=relative_to_assets("image_3.png"))
-        image_3 = self.canvas.create_image(
+        image_3 =self.canvas.create_image(
             566.0,
             184.0,
             image=image_image_3
@@ -163,7 +182,7 @@ class Dashboard(Toplevel):
 
         image_image_4 = PhotoImage(
             file=relative_to_assets("image_4.png"))
-        image_4 = self.canvas.create_image(
+        image_4 =self.canvas.create_image(
             566.0,
             384.0,
             image=image_image_4
@@ -171,7 +190,7 @@ class Dashboard(Toplevel):
 
         image_image_5 = PhotoImage(
             file=relative_to_assets("image_5.png"))
-        image_5 = self.canvas.create_image(
+        image_5 =self.canvas.create_image(
             339.0,
             103.0,
             image=image_image_5
@@ -179,7 +198,7 @@ class Dashboard(Toplevel):
 
         image_image_6 = PhotoImage(
             file=relative_to_assets("image_6.png"))
-        image_6 = self.canvas.create_image(
+        image_6 =self.canvas.create_image(
             566.0,
             284.0,
             image=image_image_6
@@ -208,5 +227,9 @@ class Dashboard(Toplevel):
             103.0,
             image=image_image_9
         )
+
+
+
+
         self.resizable(False, False)
         self.mainloop()
