@@ -7,13 +7,13 @@ from pathlib import Path
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Toplevel, Tk, Canvas, Entry, Text, Button, PhotoImage
 
 # from tkinter import fonnt
 from tkinter.font import Font
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"D:\Tkinter-Designer\build\assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r".\assets\frame0")
 
 # CUSTOM_FONT_PAT = {
 #     'Bitter Medium':r'./font/static/Bitter-Medium.ttf',
@@ -23,6 +23,8 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"D:\Tkinter-Designer\build\assets\frame0")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
+def loginWindow():
+    Login()
 
 # def create_custom_font(name_font:str, size_font:int)->Font:
 #     print(CUSTOM_FONT_PAT[name_font], name_font, size_font)
@@ -31,156 +33,169 @@ def relative_to_assets(path: str) -> Path:
 #     print(custom_font)
 #     return custom_font
 
+class Login(Toplevel):
 
-window = Tk()
+    def __init__(self, *args, **kwargs):
 
-window.geometry("913x570")
-window.configure(bg = "#FFFFFF")
+        Toplevel.__init__(self, *args, **kwargs)
+
+        self.title("Login - СБС Банк")
+
+        self.geometry("913x570")
+        self.configure(bg="#FFFFFF")
+
+# window = Tk()
+
+# window.geometry("")
+# window.configure(bg = "#")
 
 
-canvas = Canvas(
-    window,
-    bg = "#FFFFFF",
-    height = 570,
-    width = 913,
-    bd = 0,
-    highlightthickness = 0,
-    relief = "ridge"
-)
+        self.canvas = Canvas(
+            self,
+            bg = "#FFFFFF",
+            height = 570,
+            width = 913,
+            bd = 0,
+            highlightthickness = 0,
+            relief = "ridge"
+        )
 
-canvas.place(x = 0, y = 0)
-canvas.create_rectangle(
-    0.0,
-    0.0,
-    475.0,
-    570.0,
-    fill="#7879F1",
-    outline="")
+        self.canvas.place(x = 0, y = 0)
+        self.canvas.create_rectangle(
+            0.0,
+            0.0,
+            475.0,
+            570.0,
+            fill="#7879F1",
+            outline="")
 
-canvas.create_text(
-    144.0,
-    525.0,
-    anchor="nw",
-    text="© Насурллаев Илья, 2024",
-    fill="#FFFFFF",
-    font=("Bitter Bold", 16 * -1)
-)
+        self.canvas.create_text(
+            144.0,
+            525.0,
+            anchor="nw",
+            text="© Насурллаев Илья, 2024",
+            fill="#FFFFFF",
+            font=("Bitter Bold", 16 * -1)
+        )
 
-image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
-image_1 = canvas.create_image(
-    696.0,
-    330.0,
-    image=image_image_1
-)
+        image_image_1 = PhotoImage(
+            file=relative_to_assets("image_1.png"))
+        image_1 = self.canvas.create_image(
+            696.0,
+            330.0,
+            image=image_image_1
+        )
 
-image_image_2 = PhotoImage(
-    file=relative_to_assets("image_2.png"))
-image_2 = canvas.create_image(
-    696.0,
-    240.0,
-    image=image_image_2
-)
+        image_image_2 = PhotoImage(
+            file=relative_to_assets("image_2.png"))
+        image_2 = self.canvas.create_image(
+            696.0,
+            240.0,
+            image=image_image_2
+        )
 
-canvas.create_text(
-    511.0,
-    108.0,
-    anchor="nw",
-    text="На данном этапе необходимо ввести логин и \nпароль для авторизации",
-    fill="#8E8E93",
-    font=("Bitter Medium", 16 * -1)
-)
+        self.canvas.create_text(
+            511.0,
+            108.0,
+            anchor="nw",
+            text="На данном этапе необходимо ввести логин и \nпароль для авторизации",
+            fill="#8E8E93",
+            font=("Bitter Medium", 16 * -1)
+        )
 
-canvas.create_text(
-    560.0,
-    525.0,
-    anchor="nw",
-    text="*Просто нажми на кнопку “Войти” ",
-    fill="#8E8E93",
-    font=("Bitter Medium", 16 * -1)
-)
+        self.canvas.create_text(
+            560.0,
+            525.0,
+            anchor="nw",
+            text="*Просто нажми на кнопку “Войти” ",
+            fill="#8E8E93",
+            font=("Bitter Medium", 16 * -1)
+        )
 
-canvas.create_text(
-    20.0,
-    160.0,
-    anchor="nw",
-    text="В условиях современного мира банковские услуги \nиграют ключевую роль в экономике любой страны. \n\nКредитование является одной из важнейших функций \nбанков, поскольку оно позволяет физическим и \nюридическим лицам получать необходимые средства \nдля развития бизнеса, приобретения недвижимости, \nоплаты образования и других целей. \n\nЭффективность управления кредитными операциями \nнапрямую влияет на финансовую устойчивость банка и \nудовлетворенность клиентов.",
-    fill="#FFFFFF",
-    font=("Bitter Medium", 16 * -1)
-)
+        self.canvas.create_text(
+            20.0,
+            160.0,
+            anchor="nw",
+            text="В условиях современного мира банковские услуги \nиграют ключевую роль в экономике любой страны. \n\nКредитование является одной из важнейших функций \nбанков, поскольку оно позволяет физическим и \nюридическим лицам получать необходимые средства \nдля развития бизнеса, приобретения недвижимости, \nоплаты образования и других целей. \n\nЭффективность управления кредитными операциями \nнапрямую влияет на финансовую устойчивость банка и \nудовлетворенность клиентов.",
+            fill="#FFFFFF",
+            font=("Bitter Medium", 16 * -1)
+        )
 
-canvas.create_text(
-    625.0,
-    50.0,
-    anchor="nw",
-    text="Авторизация",
-    fill="#7879F1",
-    font=("Bitter Bold", 24 * -1)
-)
+        self.canvas.create_text(
+            625.0,
+            50.0,
+            anchor="nw",
+            text="Авторизация",
+            fill="#7879F1",
+            font=("Bitter Bold", 24 * -1)
+        )
 
-canvas.create_text(
-    108.0,
-    50.0,
-    anchor="nw",
-    text="Учет кредитов в банке",
-    fill="#FFFFFF",
-    font=("Bitter Bold", 24 * -1)
-)
+        self.canvas.create_text(
+            108.0,
+            50.0,
+            anchor="nw",
+            text="Учет кредитов в банке",
+            fill="#FFFFFF",
+            font=("Bitter Bold", 24 * -1)
+        )
 
-button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
-button_1 = Button(
-    image=button_image_1,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("button_1 clicked"),
-    relief="flat"
-)
-button_1.place(
-    x=609.0,
-    y=390.0,
-    width=173.0,
-    height=39.0
-)
+        button_image_1 = PhotoImage(
+            file=relative_to_assets("button_1.png"))
+        button_1 = Button(
+            self.canvas,
+            image=button_image_1,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: print("button_1 clicked"),
+            relief="flat"
+        )
+        button_1.place(
+            x=609.0,
+            y=390.0,
+            width=173.0,
+            height=39.0
+        )
 
-entry_image_1 = PhotoImage(
-    file=relative_to_assets("entry_1.png"))
-entry_bg_1 = canvas.create_image(
-    696.5,
-    250.0,
-    image=entry_image_1
-)
-entry_1 = Entry(
-    bd=0,
-    bg="#D9D9D9",
-    fg="#000716",
-    highlightthickness=0
-)
-entry_1.place(
-    x=540.0,
-    y=237.0,
-    width=313.0,
-    height=24.0
-)
+        entry_image_1 = PhotoImage(
+            file=relative_to_assets("entry_1.png"))
+        entry_bg_1 = self.canvas.create_image(
+            696.5,
+            250.0,
+            image=entry_image_1
+        )
+        entry_1 = Entry(
+            self.canvas,
+            bd=0,
+            bg="#D9D9D9",
+            fg="#000716",
+            highlightthickness=0
+        )
+        entry_1.place(
+            x=540.0,
+            y=237.0,
+            width=313.0,
+            height=24.0
+        )
 
-entry_image_2 = PhotoImage(
-    file=relative_to_assets("entry_2.png"))
-entry_bg_2 = canvas.create_image(
-    696.5,
-    340.0,
-    image=entry_image_2
-)
-entry_2 = Entry(
-    bd=0,
-    bg="#D9D9D9",
-    fg="#000716",
-    highlightthickness=0
-)
-entry_2.place(
-    x=540.0,
-    y=327.0,
-    width=313.0,
-    height=24.0
-)
-window.resizable(False, False)
-window.mainloop()
+        entry_image_2 = PhotoImage(
+            file=relative_to_assets("entry_2.png"))
+        entry_bg_2 = self.canvas.create_image(
+            696.5,
+            340.0,
+            image=entry_image_2
+        )
+        entry_2 = Entry(
+            self.canvas,
+            bd=0,
+            bg="#D9D9D9",
+            fg="#000716",
+            highlightthickness=0
+        )
+        entry_2.place(
+            x=540.0,
+            y=327.0,
+            width=313.0,
+            height=24.0
+        )
+        self.resizable(False, False)
+        self.mainloop()
