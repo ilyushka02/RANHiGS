@@ -1,14 +1,5 @@
 import mysql.connector
-
-print(mysql.connector.__version__)
-
-# Укажите параметры подключения
-config = {
-    'host': 'localhost',  # IP-адрес сервера базы данных
-    'user': 'root',  # Имя пользователя
-    'password': 'root',  # Пароль
-    'database': 'bank'  # Название базы данных
-}
+from ..config_db_connect import config
 
 try:
     # Подключение к базе данных
