@@ -12,13 +12,24 @@ def imports():
     }
 
 def swap_page(self, name_page: str):
+    """
+    Method for switching between pages
+    Args:
+        self - current page
+        name_page - the name of the page to go to
+    """
     imports()
-    
+    print(f"Log:{str(self.title).split('.!')[-1]} --> close")
     self.destroy()
     print(f"Log:{str(self.title).split('.!')[-1]} --> {name_page}")
     __PAGES__[name_page.lower()]()
     
 
 def exit(self):
+    """
+    Method for exiting the app
+    Args:
+        self - current page
+    """    
     print(f"Log:{str(self.title).split('.!')[-1]} --> exit")
     self.destroy()
