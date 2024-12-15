@@ -1,3 +1,5 @@
 *-checkpoint.ipynb
 *.pyc
+__pycache__/
+
 token.txt

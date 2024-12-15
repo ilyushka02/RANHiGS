@@ -1,8 +1,7 @@
 from pathlib import Path
-
-# from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Toplevel , Canvas, Button, PhotoImage
+from controller_app import swap_page, exit
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -51,7 +50,7 @@ class Dashboard(Toplevel):
             image=button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=lambda: exit(self),
             relief="flat"
         )
         button_1.place(
