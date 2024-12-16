@@ -136,7 +136,7 @@ class Dashboard(Toplevel):
             image=button_image_6,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_6 clicked"),
+            command=lambda: swap_page(self, 'loans'),
             relief="flat"
         )
         button_6.place(

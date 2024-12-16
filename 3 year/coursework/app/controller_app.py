@@ -7,12 +7,14 @@ __PAGES__ = {}
 def imports():
     from ui.main_window.dashboards.gui import dashboardsWindow
     from ui.autorization.gui import loginWindow
-    
+    from ui.main_window.loans.gui import loansWindow
+
     global __PAGES__
 
     __PAGES__ = {
         'autorization':loginWindow,
-        'dashboard':dashboardsWindow
+        'dashboard':dashboardsWindow,
+        'loans':loansWindow
     }
 
 def swap_page(self, name_page: str):
