@@ -1,3 +1,7 @@
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go 
+
 __PAGES__ = {}
 
 def imports():
@@ -33,3 +37,17 @@ def exit(self):
     """    
     print(f"Log:{str(self.title).split('.!')[-1]} --> exit")
     self.destroy()
+
+def create_diagram(data: list, columns_name:list, name_diagram:str):
+    df = pd.DataFrame(data, columns=columns_name)
+    fig = go.Figure()
+
+    fig.add_trace(go.Bar(
+        x=df[columns_name[0]].to_list(),
+        y=df[columns_name[1]].to_list()))
+    
+    fig.update(layout_showlegend=False)
+    fig.update_layout(margin=dict(l=0, r=0, t=0, b=0))
+    # Сохраняем график в PNG
+    fig.write_image(r"D:\РАНХиГС\RANHiGS\3 year\coursework\app\ui\main_window\dashboards\assets\frame0"+f"\{name_diagram}", width=630, height=160)
+    

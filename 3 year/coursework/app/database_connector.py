@@ -58,3 +58,28 @@ def get_full_sum_loans()->str:
     result = cursor.fetchone()[0]
     close_connection(connection, cursor)    
     return str(result)
+
+
+def get_refund_amounts_by_day()->str:
+    connection = open_connection()
+    cursor = create_cursor(connection)
+    cursor.execute(sql_sc.__SQL_REFAUND_AMOUNTS_BY_DAY__)
+    result = cursor.fetchall()
+    close_connection(connection, cursor)
+    result = [(result[index][0], float(result[index][1])) for index in range(len(result))]
+    return result
+
+
+def get_refund_amounts_by_city()->str:
+    connection = open_connection()
+    cursor = create_cursor(connection)
+    cursor.execute(sql_sc.__SQL_REFAUND_AMOUNTS_BY_CITY__)
+    result = cursor.fetchall()
+    close_connection(connection, cursor)   
+    result = [(result[index][0], float(result[index][1])) for index in range(len(result))]
+    return result
+
+
+# if __name__ == "__main__":
+#     res = get_refund_amounts_by_city()
+#     print(res)
