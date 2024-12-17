@@ -85,10 +85,32 @@ def get_loans()->list:
     cursor.execute(sql_sc.__SQL_SELECT_ALL_LOANS__)
     result = cursor.fetchall()
     close_connection(connection, cursor)   
-    # result = [(result[index][0], float(result[index][1])) for index in range(len(result))]
     return result
 
+def get_loans()->list:
+    connection = open_connection()
+    cursor = create_cursor(connection)
+    cursor.execute(sql_sc.__SQL_SELECT_ALL_LOANS__)
+    result = cursor.fetchall()
+    close_connection(connection, cursor)   
+    return result
+
+def get_organization_name()->list:
+    connection = open_connection()
+    cursor = create_cursor(connection)
+    cursor.execute(sql_sc.__SQL_SELECT_ORG_NAME__)
+    result = cursor.fetchall()
+    close_connection(connection, cursor)   
+    return [value[0] for value in result]
+
+def get_status_name()->list:
+    connection = open_connection()
+    cursor = create_cursor(connection)
+    cursor.execute(sql_sc.__SQL_SELECT_STATUS_NAME__)
+    result = cursor.fetchall()
+    close_connection(connection, cursor)   
+    return [value[0] for value in result]
 
 # if __name__ == "__main__":
-#     res = get_loans()
+#     res = get_organization_name()
 #     print(res)

@@ -8,7 +8,7 @@ from pathlib import Path
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Toplevel, Canvas, Entry, Button, PhotoImage, StringVar
-from tkinter.ttk import Treeview
+from tkinter.ttk import Treeview, Combobox
 import database_connector as db_connect
 
 
@@ -23,6 +23,7 @@ def loansWindow():
     Loans()
 
 class Loans(Toplevel):
+    id_row = ''
     data = {}
 
    
@@ -174,6 +175,7 @@ class Loans(Toplevel):
             height=52.0
         )
 
+        #  Добавить строку
         button_image_8 = PhotoImage(
             file=relative_to_assets("button_8.png"))
         button_8 = Button(
@@ -191,6 +193,7 @@ class Loans(Toplevel):
             height=22.0
         )
 
+        # Изменить строку 
         button_image_9 = PhotoImage(
             file=relative_to_assets("button_9.png"))
         button_9 = Button(
@@ -208,6 +211,7 @@ class Loans(Toplevel):
             height=22.0
         )
 
+        # Удалить строку
         button_image_10 = PhotoImage(
             file=relative_to_assets("button_10.png"))
         button_10 = Button(
@@ -310,12 +314,10 @@ class Loans(Toplevel):
             466.0,
             image=entry_image_1
         )
-        self.entry_5 = Entry(
+        self.entry_5 = Combobox(
             self.canvas,
-            bd=0,
-            bg="#D9D9D9",
-            fg="#000716",
-            highlightthickness=0
+            state="readonly",
+            values=db_connect.get_status_name()
         )
         self.entry_5.place(
             x=468.0,
@@ -329,12 +331,10 @@ class Loans(Toplevel):
             466.0,
             image=entry_image_1
         )
-        self.entry_6 = Entry(
+        self.entry_6 = Combobox(
             self.canvas,
-            bd=0,
-            bg="#D9D9D9",
-            fg="#000716",
-            highlightthickness=0
+            state="readonly",
+            values=db_connect.get_organization_name()
         )
         self.entry_6.place(
             x=686.0,
@@ -403,9 +403,6 @@ class Loans(Toplevel):
 
         self.treeview.place(x=248.0, y=75.0, width=610.0, height=180.0)
 
-        # Insert data
-        # self.handle_refresh()
-        # def show_data(self):
         # Очистка таблицы перед обновлением данных
         for i in self.treeview.get_children():
             self.treeview.delete(i)
@@ -416,7 +413,7 @@ class Loans(Toplevel):
         for row in rows:
             self.treeview.insert('', "end", values=row)
 
-        # Add selection event
+        # Добавляем слушатель нажатей таблицы
         self.treeview.bind("<<TreeviewSelect>>", self.on_treeview_select)
         
         self.resizable(False, False)
@@ -435,18 +432,34 @@ class Loans(Toplevel):
         values = self.treeview.item(item, "values")
         
         if values:
+            # Очистка полей
             self.entry_1.delete(0, 'end')
             self.entry_2.delete(0, 'end')
             self.entry_3.delete(0, 'end')
             self.entry_4.delete(0, 'end')
-            self.entry_5.delete(0, 'end')
+            # self.entry_5.delete(0, 'end')
             self.entry_6.delete(0, 'end')
             self.entry_7.delete(0, 'end')
 
+            # Сохраняем id строки
+            self.id_row = values[0]
+
+            # Вставляем данные из выбранной строки
             self.entry_1.insert(0, values[1])
             self.entry_2.insert(0, values[2])
             self.entry_3.insert(0, values[3])
             self.entry_4.insert(0, values[4])
-            self.entry_5.insert(0, values[5])
-            self.entry_6.insert(0, values[6])
+            self.entry_5.set(values[5])
+            self.entry_6.set(values[6])
             self.entry_7.insert(0, values[7])
+    
+    def on_insert_item(self):
+        print("Log: add row")
+
+    
+    def on_update_item(self):
+        print("Log: update row")
+    
+    def on_delete_item(self):
+        print("Log: delete row")
+    

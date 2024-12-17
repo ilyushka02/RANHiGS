@@ -50,3 +50,16 @@ __SQL_SELECT_ALL_LOANS__ = """
     join bank.organizations org on l.organization_id = org.id
     join bank.status_loan st on l.status_id = st.id
 """
+
+__SQL_SELECT_ORG_NAME__ = """
+    select
+        org.organization_name
+    from bank.organizations org
+"""
+
+__SQL_SELECT_STATUS_NAME__ = """
+    select
+        st.name_status
+    from bank.status_loan st
+"""
+
