@@ -45,13 +45,15 @@ class Loans(Toplevel):
         )
 
         self.canvas.place(x = 0, y = 0)
+
         image_image_1 = PhotoImage(
             file=relative_to_assets("image_1.png"))
         image_1 = self.canvas.create_image(
-            105.0,
+            437.0,
             285.0,
             image=image_image_1
         )
+
 
         button_image_1 = PhotoImage(
             file=relative_to_assets("button_1.png"))
@@ -172,14 +174,6 @@ class Loans(Toplevel):
             height=52.0
         )
 
-        image_image_2 = PhotoImage(
-            file=relative_to_assets("image_2.png"))
-        image_2 = self.canvas.create_image(
-            3.0,
-            204.0,
-            image=image_image_2
-        )
-
         button_image_8 = PhotoImage(
             file=relative_to_assets("button_8.png"))
         button_8 = Button(
@@ -231,32 +225,10 @@ class Loans(Toplevel):
             height=22.0
         )
 
-        image_image_3 = PhotoImage(
-            file=relative_to_assets("image_3.png"))
-        image_3 = self.canvas.create_image(
-            554.0,
-            154.0,
-            image=image_image_3
-        )
-
-        image_image_4 = PhotoImage(
-            file=relative_to_assets("image_4.png"))
-        image_4 = self.canvas.create_image(
-            554.0,
-            291.0,
-            image=image_image_4
-        )
-
-        image_image_5 = PhotoImage(
-            file=relative_to_assets("image_5.png"))
-        image_5 = self.canvas.create_image(
-            339.0,
-            377.0,
-            image=image_image_5
-        )
 
         entry_image_1 = PhotoImage(
             file=relative_to_assets("entry_1.png"))
+        
         entry_bg_1 = self.canvas.create_image(
             339.5,
             388.0,
@@ -276,20 +248,10 @@ class Loans(Toplevel):
             height=24.0
         )
 
-        image_image_6 = PhotoImage(
-            file=relative_to_assets("image_6.png"))
-        image_6 = self.canvas.create_image(
-            557.0,
-            377.0,
-            image=image_image_6
-        )
-
-        entry_image_2 = PhotoImage(
-            file=relative_to_assets("entry_2.png"))
         entry_bg_2 = self.canvas.create_image(
             557.5,
             388.0,
-            image=entry_image_2
+            image=entry_image_1
         )
         self.entry_2 = Entry(
             self.canvas,
@@ -305,20 +267,10 @@ class Loans(Toplevel):
             height=24.0
         )
 
-        image_image_7 = PhotoImage(
-            file=relative_to_assets("image_7.png"))
-        image_7 = self.canvas.create_image(
-            775.0,
-            377.0,
-            image=image_image_7
-        )
-
-        entry_image_3 = PhotoImage(
-            file=relative_to_assets("entry_3.png"))
         entry_bg_3 = self.canvas.create_image(
             775.5,
             388.0,
-            image=entry_image_3
+            image=entry_image_1
         )
         self.entry_3 = Entry(
             self.canvas,
@@ -334,20 +286,10 @@ class Loans(Toplevel):
             height=24.0
         )
 
-        image_image_8 = PhotoImage(
-            file=relative_to_assets("image_8.png"))
-        image_8 = self.canvas.create_image(
-            339.0,
-            455.0,
-            image=image_image_8
-        )
-
-        entry_image_4 = PhotoImage(
-            file=relative_to_assets("entry_4.png"))
         entry_bg_4 = self.canvas.create_image(
             339.5,
             466.0,
-            image=entry_image_4
+            image=entry_image_1
         )
         self.entry_4 = Entry(
             self.canvas,
@@ -363,20 +305,10 @@ class Loans(Toplevel):
             height=24.0
         )
 
-        image_image_9 = PhotoImage(
-            file=relative_to_assets("image_9.png"))
-        image_9 = self.canvas.create_image(
-            557.0,
-            455.0,
-            image=image_image_9
-        )
-
-        entry_image_5 = PhotoImage(
-            file=relative_to_assets("entry_5.png"))
         entry_bg_5 = self.canvas.create_image(
             557.5,
             466.0,
-            image=entry_image_5
+            image=entry_image_1
         )
         self.entry_5 = Entry(
             self.canvas,
@@ -392,20 +324,10 @@ class Loans(Toplevel):
             height=24.0
         )
 
-        image_image_10 = PhotoImage(
-            file=relative_to_assets("image_10.png"))
-        image_10 = self.canvas.create_image(
-            775.0,
-            455.0,
-            image=image_image_10
-        )
-
-        entry_image_6 = PhotoImage(
-            file=relative_to_assets("entry_6.png"))
         entry_bg_6 = self.canvas.create_image(
             775.5,
             466.0,
-            image=entry_image_6
+            image=entry_image_1
         )
         self.entry_6 = Entry(
             self.canvas,
@@ -421,20 +343,10 @@ class Loans(Toplevel):
             height=24.0
         )
 
-        image_image_11 = PhotoImage(
-        file=relative_to_assets("image_11.png"))
-        image_11 = self.canvas.create_image(
-            339.0,
-            530.0,
-            image=image_image_11
-        )
-
-        entry_image_7 = PhotoImage(
-            file=relative_to_assets("entry_7.png"))
         entry_bg_7 = self.canvas.create_image(
             339.5,
             541.0,
-            image=entry_image_7
+            image=entry_image_1
         )
         self.entry_7 = Entry(
             self.canvas,
@@ -538,24 +450,3 @@ class Loans(Toplevel):
             self.entry_5.insert(0, values[5])
             self.entry_6.insert(0, values[6])
             self.entry_7.insert(0, values[7])
-
-
-        # Get the reservation id
-        # self.parent.selected_rid = 
-        # print(self.treeview.item(item, "values")[0])
-        # self.canvas.entry_1.insert(self.treeview.item(item, "values")[1])
-        # self.data = {
-        #     "amount": StringVar(self.treeview.item(item, "values")[1]),
-        #     "interest_rate": StringVar(self.treeview.item(item, "values")[2]),
-        #     # "date_from": StringVar(),
-            # "date_to": StringVar(),
-            # "name_status": StringVar(),
-            # "organization_name": StringVar(),
-            # "retern_amount": StringVar()
-        # }
-
-        print(self.data)
-        # # Enable the buttons
-        # self.delete_btn.config(state="normal")
-        # self.edit_btn.config(state="normal")
-        # self.checkout_btn.config(state="normal")
