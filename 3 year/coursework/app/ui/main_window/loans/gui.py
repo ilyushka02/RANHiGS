@@ -5,12 +5,11 @@
 
 from pathlib import Path
 
-# from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Toplevel, Canvas, Entry, Button, PhotoImage, StringVar
 from tkinter.ttk import Treeview, Combobox
 import database_connector as db_connect
-
+from controller_app import swap_page, exit
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r".\assets\frame0")
@@ -55,7 +54,7 @@ class Loans(Toplevel):
             image=image_image_1
         )
 
-
+        # Выход
         button_image_1 = PhotoImage(
             file=relative_to_assets("button_1.png"))
         button_1 = Button(
@@ -73,6 +72,7 @@ class Loans(Toplevel):
             height=41.0
         )
 
+        # Дашборд
         button_image_2 = PhotoImage(
             file=relative_to_assets("button_2.png"))
         button_2 = Button(
@@ -80,7 +80,7 @@ class Loans(Toplevel):
             image=button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_2 clicked"),
+            command=lambda: swap_page(self, 'dashboard'),
             relief="flat"
         )
         button_2.place(
@@ -183,7 +183,7 @@ class Loans(Toplevel):
             image=button_image_8,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_8 clicked"),
+            command=lambda: self.on_insert_item(),
             relief="flat"
         )
         button_8.place(
@@ -201,7 +201,7 @@ class Loans(Toplevel):
             image=button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_9 clicked"),
+            command=lambda: self.on_update_item(),
             relief="flat"
         )
         button_9.place(
@@ -219,7 +219,7 @@ class Loans(Toplevel):
             image=button_image_10,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_10 clicked"),
+            command=lambda: self.on_delete_item(),
             relief="flat"
         )
         button_10.place(
@@ -403,6 +403,15 @@ class Loans(Toplevel):
 
         self.treeview.place(x=248.0, y=75.0, width=610.0, height=180.0)
 
+        self.set_rows_in_treeview()
+
+        # Добавляем слушатель нажатей таблицы
+        self.treeview.bind("<<TreeviewSelect>>", self.on_treeview_select)
+        
+        self.resizable(False, False)
+        self.mainloop()
+
+    def set_rows_in_treeview(self):
         # Очистка таблицы перед обновлением данных
         for i in self.treeview.get_children():
             self.treeview.delete(i)
@@ -413,19 +422,12 @@ class Loans(Toplevel):
         for row in rows:
             self.treeview.insert('', "end", values=row)
 
-        # Добавляем слушатель нажатей таблицы
-        self.treeview.bind("<<TreeviewSelect>>", self.on_treeview_select)
-        
-        self.resizable(False, False)
-        self.mainloop()
-
-
     def on_treeview_select(self, event=None):
         try:
             self.treeview.selection()[0]
         except:
-            self.parent.selected_rid = None
             return
+        
         # Get the selected item
         item = self.treeview.selection()[0]
 
@@ -437,8 +439,6 @@ class Loans(Toplevel):
             self.entry_2.delete(0, 'end')
             self.entry_3.delete(0, 'end')
             self.entry_4.delete(0, 'end')
-            # self.entry_5.delete(0, 'end')
-            self.entry_6.delete(0, 'end')
             self.entry_7.delete(0, 'end')
 
             # Сохраняем id строки
@@ -455,11 +455,39 @@ class Loans(Toplevel):
     
     def on_insert_item(self):
         print("Log: add row")
+        db_connect.set_loan(
+                self.entry_1.get(),
+                self.entry_2.get(),
+                self.entry_3.get(),
+                self.entry_4.get(), 
+                db_connect.get_status_name().index(self.entry_5.get())+1,
+                db_connect.get_organization_name().index(self.entry_6.get())+1,
+                self.entry_7.get()
+        )
 
+        self.set_rows_in_treeview()
     
     def on_update_item(self):
         print("Log: update row")
+        
+        db_connect.update_loan(
+                self.entry_1.get(),
+                self.entry_2.get(),
+                self.entry_3.get(),
+                self.entry_4.get(), 
+                db_connect.get_status_name().index(self.entry_5.get())+1,
+                db_connect.get_organization_name().index(self.entry_6.get())+1,
+                self.entry_7.get(),
+                self.id_row
+        )
+
+        self.set_rows_in_treeview()
     
     def on_delete_item(self):
         print("Log: delete row")
+        db_connect.delete_loan(
+                self.id_row
+        )
+
+        self.set_rows_in_treeview()
     

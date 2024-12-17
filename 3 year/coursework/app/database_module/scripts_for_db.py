@@ -63,3 +63,27 @@ __SQL_SELECT_STATUS_NAME__ = """
     from bank.status_loan st
 """
 
+__SQL_INSERT_LOAN__ = f"""
+    INSERT INTO loan (amount, interest_rate, date_from,
+        date_to, status_id, organization_id, retern_amount)
+    VALUES (%s, %s, %s, %s, %s, %s, %s);
+"""
+
+__SQL_UPDATE_LOAN__ = f"""
+    UPDATE loan 
+    SET
+    amount = %s, 
+    interest_rate= %s,
+    date_from= %s,
+    date_to= %s,
+    status_id= %s,
+    organization_id= %s,
+    retern_amount= %s
+    where
+    id = %s;
+"""
+
+__SQL_DELETE_LOAN__ = f"""
+    DELETE FROM loan
+    WHERE id = %s;
+"""
