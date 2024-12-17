@@ -60,7 +60,7 @@ def get_full_sum_loans()->str:
     return str(result)
 
 
-def get_refund_amounts_by_day()->str:
+def get_refund_amounts_by_day()->list:
     connection = open_connection()
     cursor = create_cursor(connection)
     cursor.execute(sql_sc.__SQL_REFAUND_AMOUNTS_BY_DAY__)
@@ -70,7 +70,7 @@ def get_refund_amounts_by_day()->str:
     return result
 
 
-def get_refund_amounts_by_city()->str:
+def get_refund_amounts_by_city()->list:
     connection = open_connection()
     cursor = create_cursor(connection)
     cursor.execute(sql_sc.__SQL_REFAUND_AMOUNTS_BY_CITY__)
@@ -79,7 +79,16 @@ def get_refund_amounts_by_city()->str:
     result = [(result[index][0], float(result[index][1])) for index in range(len(result))]
     return result
 
+def get_loans()->list:
+    connection = open_connection()
+    cursor = create_cursor(connection)
+    cursor.execute(sql_sc.__SQL_SELECT_ALL_LOANS__)
+    result = cursor.fetchall()
+    close_connection(connection, cursor)   
+    # result = [(result[index][0], float(result[index][1])) for index in range(len(result))]
+    return result
+
 
 # if __name__ == "__main__":
-#     res = get_refund_amounts_by_city()
+#     res = get_loans()
 #     print(res)

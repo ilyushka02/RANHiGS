@@ -35,3 +35,18 @@ __SQL_REFAUND_AMOUNTS_BY_CITY__ = """
     group by cyti.city_name
     order by sum(oper.amount) desc
 """
+
+__SQL_SELECT_ALL_LOANS__ = """
+    select
+        l.id,
+        l.amount,
+        l.interest_rate,
+        l.date_from,
+        l.date_to,
+        st.name_status,
+        org.organization_name,
+        l.retern_amount
+    from bank.loan l
+    join bank.organizations org on l.organization_id = org.id
+    join bank.status_loan st on l.status_id = st.id
+"""

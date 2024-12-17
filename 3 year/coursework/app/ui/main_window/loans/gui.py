@@ -7,11 +7,14 @@ from pathlib import Path
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Toplevel, Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Toplevel, Canvas, Entry, Button, PhotoImage, StringVar
+from tkinter.ttk import Treeview
+import database_connector as db_connect
 
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r".\assets\frame0")
+
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -20,7 +23,9 @@ def loansWindow():
     Loans()
 
 class Loans(Toplevel):
+    data = {}
 
+   
     def __init__(self, *args, **kwargs):
         Toplevel.__init__(self, *args, **kwargs)
 
@@ -257,14 +262,14 @@ class Loans(Toplevel):
             388.0,
             image=entry_image_1
         )
-        entry_1 = Entry(
+        self.entry_1 = Entry(
             self.canvas,
             bd=0,
             bg="#D9D9D9",
             fg="#000716",
             highlightthickness=0
         )
-        entry_1.place(
+        self.entry_1.place(
             x=250.0,
             y=375.0,
             width=179.0,
@@ -286,14 +291,14 @@ class Loans(Toplevel):
             388.0,
             image=entry_image_2
         )
-        entry_2 = Entry(
+        self.entry_2 = Entry(
             self.canvas,
             bd=0,
             bg="#D9D9D9",
             fg="#000716",
             highlightthickness=0
         )
-        entry_2.place(
+        self.entry_2.place(
             x=468.0,
             y=375.0,
             width=179.0,
@@ -315,14 +320,14 @@ class Loans(Toplevel):
             388.0,
             image=entry_image_3
         )
-        entry_3 = Entry(
+        self.entry_3 = Entry(
             self.canvas,
             bd=0,
             bg="#D9D9D9",
             fg="#000716",
             highlightthickness=0
         )
-        entry_3.place(
+        self.entry_3.place(
             x=686.0,
             y=375.0,
             width=179.0,
@@ -344,14 +349,14 @@ class Loans(Toplevel):
             466.0,
             image=entry_image_4
         )
-        entry_4 = Entry(
+        self.entry_4 = Entry(
             self.canvas,
             bd=0,
             bg="#D9D9D9",
             fg="#000716",
             highlightthickness=0
         )
-        entry_4.place(
+        self.entry_4.place(
             x=250.0,
             y=453.0,
             width=179.0,
@@ -373,14 +378,14 @@ class Loans(Toplevel):
             466.0,
             image=entry_image_5
         )
-        entry_5 = Entry(
+        self.entry_5 = Entry(
             self.canvas,
             bd=0,
             bg="#D9D9D9",
             fg="#000716",
             highlightthickness=0
         )
-        entry_5.place(
+        self.entry_5.place(
             x=468.0,
             y=453.0,
             width=179.0,
@@ -402,19 +407,155 @@ class Loans(Toplevel):
             466.0,
             image=entry_image_6
         )
-        entry_6 = Entry(
+        self.entry_6 = Entry(
             self.canvas,
             bd=0,
             bg="#D9D9D9",
             fg="#000716",
             highlightthickness=0
         )
-        entry_6.place(
+        self.entry_6.place(
             x=686.0,
             y=453.0,
             width=179.0,
             height=24.0
         )
+
+        image_image_11 = PhotoImage(
+        file=relative_to_assets("image_11.png"))
+        image_11 = self.canvas.create_image(
+            339.0,
+            530.0,
+            image=image_image_11
+        )
+
+        entry_image_7 = PhotoImage(
+            file=relative_to_assets("entry_7.png"))
+        entry_bg_7 = self.canvas.create_image(
+            339.5,
+            541.0,
+            image=entry_image_7
+        )
+        self.entry_7 = Entry(
+            self.canvas,
+            bd=0,
+            bg="#D9D9D9",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_7.place(
+            x=250.0,
+            y=528.0,
+            width=179.0,
+            height=24.0
+        )
+
+        self.columns = {
+            "ID": "Res. ID",
+            "Сумма": "Room ID",
+            "% Cтавка": "Check In Time",
+            "Дата начала": "Check Out Time",
+            "Дата окончания": "Meal",
+            "Статус": "Status",
+            "Организация": "Guest ID",
+            "Возвращенная сумма": "Status",
+        }
+
+        self.treeview = Treeview(
+            self,
+            columns=list(self.columns.keys()),
+            show="headings",
+            height=200,
+            selectmode="browse",
+        )
+
+        # Show the headings
+        self.treeview.heading(list(self.columns.keys())[0], text="ID")
+        self.treeview.heading(list(self.columns.keys())[1], text="Сумма")
+        self.treeview.heading(list(self.columns.keys())[2], text="% Cтавка")
+        self.treeview.heading(list(self.columns.keys())[3], text="Дата начала")
+        self.treeview.heading(list(self.columns.keys())[4], text="Дата окончания")
+        self.treeview.heading(list(self.columns.keys())[5], text="Статус")
+        self.treeview.heading(list(self.columns.keys())[6], text="Организация")
+        self.treeview.heading(list(self.columns.keys())[7], text="Возвращенная сумма")
+
+        # Set the column widths
+        self.treeview.column(list(self.columns.keys())[0], width=10)
+        self.treeview.column(list(self.columns.keys())[1], width=50)
+        self.treeview.column(list(self.columns.keys())[2], width=50)
+        self.treeview.column(list(self.columns.keys())[3], width=20)
+        self.treeview.column(list(self.columns.keys())[4], width=50)
+        self.treeview.column(list(self.columns.keys())[5], width=50)
+        self.treeview.column(list(self.columns.keys())[6], width=50)
+        self.treeview.column(list(self.columns.keys())[7], width=50)
+
+        self.treeview.place(x=248.0, y=75.0, width=610.0, height=180.0)
+
+        # Insert data
+        # self.handle_refresh()
+        # def show_data(self):
+        # Очистка таблицы перед обновлением данных
+        for i in self.treeview.get_children():
+            self.treeview.delete(i)
+        
+        # Получение данных из базы данных
+        rows = db_connect.get_loans()
+        # Заполнение таблицы данными
+        for row in rows:
+            self.treeview.insert('', "end", values=row)
+
+        # Add selection event
+        self.treeview.bind("<<TreeviewSelect>>", self.on_treeview_select)
         
         self.resizable(False, False)
         self.mainloop()
+
+
+    def on_treeview_select(self, event=None):
+        try:
+            self.treeview.selection()[0]
+        except:
+            self.parent.selected_rid = None
+            return
+        # Get the selected item
+        item = self.treeview.selection()[0]
+
+        values = self.treeview.item(item, "values")
+        
+        if values:
+            self.entry_1.delete(0, 'end')
+            self.entry_2.delete(0, 'end')
+            self.entry_3.delete(0, 'end')
+            self.entry_4.delete(0, 'end')
+            self.entry_5.delete(0, 'end')
+            self.entry_6.delete(0, 'end')
+            self.entry_7.delete(0, 'end')
+
+            self.entry_1.insert(0, values[1])
+            self.entry_2.insert(0, values[2])
+            self.entry_3.insert(0, values[3])
+            self.entry_4.insert(0, values[4])
+            self.entry_5.insert(0, values[5])
+            self.entry_6.insert(0, values[6])
+            self.entry_7.insert(0, values[7])
+
+
+        # Get the reservation id
+        # self.parent.selected_rid = 
+        # print(self.treeview.item(item, "values")[0])
+        # self.canvas.entry_1.insert(self.treeview.item(item, "values")[1])
+        # self.data = {
+        #     "amount": StringVar(self.treeview.item(item, "values")[1]),
+        #     "interest_rate": StringVar(self.treeview.item(item, "values")[2]),
+        #     # "date_from": StringVar(),
+            # "date_to": StringVar(),
+            # "name_status": StringVar(),
+            # "organization_name": StringVar(),
+            # "retern_amount": StringVar()
+        # }
+
+        print(self.data)
+        # # Enable the buttons
+        # self.delete_btn.config(state="normal")
+        # self.edit_btn.config(state="normal")
+        # self.checkout_btn.config(state="normal")
