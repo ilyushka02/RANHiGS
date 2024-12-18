@@ -87,13 +87,13 @@ def get_loans()->list:
     close_connection(connection, cursor)   
     return result
 
-def get_loans()->list:
+def get_loans_id()->list:
     connection = open_connection()
     cursor = create_cursor(connection)
-    cursor.execute(sql_sc.__SQL_SELECT_ALL_LOANS__)
+    cursor.execute(sql_sc.__SQL_SELECT_LOAN_ID__)
     result = cursor.fetchall()
     close_connection(connection, cursor)   
-    return result
+    return [value[0] for value in result]
 
 def get_organization_name()->list:
     connection = open_connection()
@@ -110,7 +110,6 @@ def get_status_name()->list:
     result = cursor.fetchall()
     close_connection(connection, cursor)   
     return [value[0] for value in result]
-
 
 def set_loan(
         amount:int,
@@ -160,14 +159,63 @@ def update_loan(
     connection.commit()
     close_connection(connection, cursor)
 
-def delete_loan(id_row_update:int): 
+def delete_loan(id_row:int): 
    
     connection = open_connection()
     cursor = create_cursor(connection)
-    cursor.execute(sql_sc.__SQL_DELETE_LOAN__, (id_row_update,))
+    cursor.execute(sql_sc.__SQL_DELETE_LOAN__, (id_row,))
     connection.commit()
     close_connection(connection, cursor)  
 
 # if __name__ == "__main__":
 #     res = get_organization_name()
 #     print(res)
+
+
+def get_operations()->list:
+    connection = open_connection()
+    cursor = create_cursor(connection)
+    cursor.execute(sql_sc.__SQL_SELECT_ALL_OPERATIONS__)
+    result = cursor.fetchall()
+    close_connection(connection, cursor)   
+    return result
+
+def set_operation(
+        loan_id: int, 
+        date_operation: str,
+        amount: int
+        ): 
+   
+    connection = open_connection()
+    cursor = create_cursor(connection)
+    cursor.execute(sql_sc.__SQL_INSERT_OPERATION__, ( 
+        loan_id, 
+        date_operation,
+        amount))
+    connection.commit()
+    close_connection(connection, cursor)  
+
+def update_operation(
+        loan_id: int, 
+        date_operation: str,
+        amount: int,
+        id_row_update: int
+        ): 
+   
+    connection = open_connection()
+    cursor = create_cursor(connection)
+    cursor.execute(sql_sc.__SQL_UPDATE_OPERATION__, (
+        loan_id,
+        date_operation,
+        amount, 
+        id_row_update))
+    connection.commit()
+    close_connection(connection, cursor)
+
+def delete_operation(id_row:int): 
+   
+    connection = open_connection()
+    cursor = create_cursor(connection)
+    cursor.execute(sql_sc.__SQL_DELETE_OPERATION__, (id_row,))
+    connection.commit()
+    close_connection(connection, cursor)  

@@ -5,262 +5,383 @@
 
 from pathlib import Path
 
-# from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter.ttk import Treeview, Combobox
+import database_connector as db_connect
+from controller_app import swap_page, exit
+from tkinter import Toplevel, Canvas, Entry, Button, PhotoImage
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"D:\Tkinter-Designer\build\assets\frame0")
-
+ASSETS_PATH = OUTPUT_PATH / Path(r".\assets\frame0")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-
-window = Tk()
-
-window.geometry("913x570")
-window.configure(bg = "#FFFFFF")
+def operationsWindow():    
+    Operations()
 
 
-canvas = Canvas(
-    window,
-    bg = "#FFFFFF",
-    height = 570,
-    width = 913,
-    bd = 0,
-    highlightthickness = 0,
-    relief = "ridge"
-)
+class Operations(Toplevel):
+    id_row = ''
+    data = {}
 
-canvas.place(x = 0, y = 0)
-image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
-image_1 = canvas.create_image(
-    437.0,
-    286.0,
-    image=image_image_1
-)
+    def __init__(self, *args, **kwargs):
+            Toplevel.__init__(self, *args, **kwargs)
 
-button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
-button_1 = Button(
-    image=button_image_1,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("button_1 clicked"),
-    relief="flat"
-)
-button_1.place(
-    x=9.0,
-    y=520.0,
-    width=194.0,
-    height=41.0
-)
+            self.title("Loans - СБС Банк")
 
-button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
-button_2 = Button(
-    image=button_image_2,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("button_2 clicked"),
-    relief="flat"
-)
-button_2.place(
-    x=20.0,
-    y=104.0,
-    width=172.0,
-    height=30.0
-)
+            self.geometry("913x570")
+            self.configure(bg = "#FFFFFF")
 
-button_image_3 = PhotoImage(
-    file=relative_to_assets("button_3.png"))
-button_3 = Button(
-    image=button_image_3,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("button_3 clicked"),
-    relief="flat"
-)
-button_3.place(
-    x=20.0,
-    y=146.0,
-    width=172.0,
-    height=33.0
-)
+            self.canvas = Canvas(
+                self,
+                bg = "#FFFFFF",
+                height = 570,
+                width = 913,
+                bd = 0,
+                highlightthickness = 0,
+                relief = "ridge"
+            )
 
-button_image_4 = PhotoImage(
-    file=relative_to_assets("button_4.png"))
-button_4 = Button(
-    image=button_image_4,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("button_4 clicked"),
-    relief="flat"
-)
-button_4.place(
-    x=20.0,
-    y=278.0,
-    width=172.0,
-    height=32.0
-)
+            self.canvas.place(x = 0, y = 0)
+            image_image_1 = PhotoImage(
+                file=relative_to_assets("image_1.png"))
+            image_1 = self.canvas.create_image(
+                437.0,
+                286.0,
+                image=image_image_1
+            )
 
-button_image_5 = PhotoImage(
-    file=relative_to_assets("button_5.png"))
-button_5 = Button(
-    image=button_image_5,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("button_5 clicked"),
-    relief="flat"
-)
-button_5.place(
-    x=20.0,
-    y=229.0,
-    width=172.0,
-    height=41.0
-)
+            button_image_1 = PhotoImage(
+                file=relative_to_assets("button_1.png"))
+            button_1 = Button(
+                self,
+                image=button_image_1,
+                borderwidth=0,
+                highlightthickness=0,
+                command=lambda: exit(self),
+                relief="flat"
+            )
+            button_1.place(
+                x=9.0,
+                y=520.0,
+                width=194.0,
+                height=41.0
+            )
 
-button_image_6 = PhotoImage(
-    file=relative_to_assets("button_6.png"))
-button_6 = Button(
-    image=button_image_6,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("button_6 clicked"),
-    relief="flat"
-)
-button_6.place(
-    x=20.0,
-    y=187.0,
-    width=172.0,
-    height=34.0
-)
+            button_image_2 = PhotoImage(
+                file=relative_to_assets("button_2.png"))
+            button_2 = Button(
+                self,
+                image=button_image_2,
+                borderwidth=0,
+                highlightthickness=0,
+                command=lambda: print("button_2 clicked"),
+                relief="flat"
+            )
+            button_2.place(
+                x=20.0,
+                y=104.0,
+                width=172.0,
+                height=30.0
+            )
 
-button_image_7 = PhotoImage(
-    file=relative_to_assets("button_7.png"))
-button_7 = Button(
-    image=button_image_7,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("button_7 clicked"),
-    relief="flat"
-)
-button_7.place(
-    x=19.0,
-    y=322.0,
-    width=172.0,
-    height=52.0
-)
+            button_image_3 = PhotoImage(
+                file=relative_to_assets("button_3.png"))
+            button_3 = Button(
+                self,
+                image=button_image_3,
+                borderwidth=0,
+                highlightthickness=0,
+                command=lambda: print("button_3 clicked"),
+                relief="flat"
+            )
+            button_3.place(
+                x=20.0,
+                y=146.0,
+                width=172.0,
+                height=33.0
+            )
 
-button_image_8 = PhotoImage(
-    file=relative_to_assets("button_8.png"))
-button_8 = Button(
-    image=button_image_8,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("button_8 clicked"),
-    relief="flat"
-)
-button_8.place(
-    x=239.0,
-    y=309.0,
-    width=94.0,
-    height=22.0
-)
+            button_image_4 = PhotoImage(
+                file=relative_to_assets("button_4.png"))
+            button_4 = Button(
+                self,
+                image=button_image_4,
+                borderwidth=0,
+                highlightthickness=0,
+                command=lambda: print("button_4 clicked"),
+                relief="flat"
+            )
+            button_4.place(
+                x=20.0,
+                y=278.0,
+                width=172.0,
+                height=32.0
+            )
 
-button_image_9 = PhotoImage(
-    file=relative_to_assets("button_9.png"))
-button_9 = Button(
-    image=button_image_9,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("button_9 clicked"),
-    relief="flat"
-)
-button_9.place(
-    x=363.0,
-    y=309.0,
-    width=94.0,
-    height=22.0
-)
+            button_image_5 = PhotoImage(
+                file=relative_to_assets("button_5.png"))
+            button_5 = Button(
+                self,
+                image=button_image_5,
+                borderwidth=0,
+                highlightthickness=0,
+                command=lambda: print("button_5 clicked"),
+                relief="flat"
+            )
+            button_5.place(
+                x=20.0,
+                y=229.0,
+                width=172.0,
+                height=41.0
+            )
 
-button_image_10 = PhotoImage(
-    file=relative_to_assets("button_10.png"))
-button_10 = Button(
-    image=button_image_10,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("button_10 clicked"),
-    relief="flat"
-)
-button_10.place(
-    x=487.0,
-    y=309.0,
-    width=94.0,
-    height=22.0
-)
+            button_image_6 = PhotoImage(
+                file=relative_to_assets("button_6.png"))
+            button_6 = Button(
+                self,
+                image=button_image_6,
+                borderwidth=0,
+                highlightthickness=0,
+                command=lambda: print("button_6 clicked"),
+                relief="flat"
+            )
+            button_6.place(
+                x=20.0,
+                y=187.0,
+                width=172.0,
+                height=34.0
+            )
 
-entry_image_1 = PhotoImage(
-    file=relative_to_assets("entry_1.png"))
-entry_bg_1 = canvas.create_image(
-    339.5,
-    389.0,
-    image=entry_image_1
-)
-entry_1 = Entry(
-    bd=0,
-    bg="#D9D9D9",
-    fg="#000716",
-    highlightthickness=0
-)
-entry_1.place(
-    x=250.0,
-    y=376.0,
-    width=179.0,
-    height=24.0
-)
+            button_image_7 = PhotoImage(
+                file=relative_to_assets("button_7.png"))
+            button_7 = Button(
+                self,
+                image=button_image_7,
+                borderwidth=0,
+                highlightthickness=0,
+                command=lambda: print("button_7 clicked"),
+                relief="flat"
+            )
+            button_7.place(
+                x=19.0,
+                y=322.0,
+                width=172.0,
+                height=52.0
+            )
+            
+            #  Добавить строку
+            button_image_8 = PhotoImage(
+                file=relative_to_assets("button_8.png"))
+            button_8 = Button(
+                self.canvas,
+                image=button_image_8,
+                borderwidth=0,
+                highlightthickness=0,
+                command=lambda: self.on_insert_item(),
+                relief="flat"
+            )
+            button_8.place(
+                x=239.0,
+                y=308.0,
+                width=94.0,
+                height=22.0
+            )
 
-entry_image_2 = PhotoImage(
-    file=relative_to_assets("entry_2.png"))
-entry_bg_2 = canvas.create_image(
-    557.5,
-    389.0,
-    image=entry_image_2
-)
-entry_2 = Entry(
-    bd=0,
-    bg="#D9D9D9",
-    fg="#000716",
-    highlightthickness=0
-)
-entry_2.place(
-    x=468.0,
-    y=376.0,
-    width=179.0,
-    height=24.0
-)
+            # Изменить строку 
+            button_image_9 = PhotoImage(
+                file=relative_to_assets("button_9.png"))
+            button_9 = Button(
+                self.canvas,
+                image=button_image_9,
+                borderwidth=0,
+                highlightthickness=0,
+                command=lambda: self.on_update_item(),
+                relief="flat"
+            )
+            button_9.place(
+                x=363.0,
+                y=308.0,
+                width=94.0,
+                height=22.0
+            )
 
-entry_image_3 = PhotoImage(
-    file=relative_to_assets("entry_3.png"))
-entry_bg_3 = canvas.create_image(
-    775.5,
-    389.0,
-    image=entry_image_3
-)
-entry_3 = Entry(
-    bd=0,
-    bg="#D9D9D9",
-    fg="#000716",
-    highlightthickness=0
-)
-entry_3.place(
-    x=686.0,
-    y=376.0,
-    width=179.0,
-    height=24.0
-)
-window.resizable(False, False)
-window.mainloop()
+            # Удалить строку
+            button_image_10 = PhotoImage(
+                file=relative_to_assets("button_10.png"))
+            button_10 = Button(
+                self.canvas,
+                image=button_image_10,
+                borderwidth=0,
+                highlightthickness=0,
+                command=lambda: self.on_delete_item(),
+                relief="flat"
+            )
+            button_10.place(
+                x=487.0,
+                y=308.0,
+                width=94.0,
+                height=22.0
+            )
+
+            entry_image_1 = PhotoImage(
+                file=relative_to_assets("entry_1.png"))
+            entry_bg_1 = self.canvas.create_image(
+                339.5,
+                389.0,
+                image=entry_image_1
+            )
+            self.entry_1 = Combobox(
+                self.canvas,
+                state="readonly",
+                values=db_connect.get_loans_id()
+            )
+            self.entry_1.place(
+                x=250.0,
+                y=376.0,
+                width=179.0,
+                height=24.0
+            )
+
+            entry_bg_2 = self.canvas.create_image(
+                557.5,
+                389.0,
+                image=entry_image_1
+            )
+            self.entry_2 = Entry(
+                self,
+                bd=0,
+                bg="#D9D9D9",
+                fg="#000716",
+                highlightthickness=0
+            )
+            self.entry_2.place(
+                x=468.0,
+                y=376.0,
+                width=179.0,
+                height=24.0
+            )
+
+            entry_bg_3 = self.canvas.create_image(
+                775.5,
+                389.0,
+                image=entry_image_1
+            )
+            self.entry_3 = Entry(
+                self,
+                bd=0,
+                bg="#D9D9D9",
+                fg="#000716",
+                highlightthickness=0
+            )
+            self.entry_3.place(
+                x=686.0,
+                y=376.0,
+                width=179.0,
+                height=24.0
+            )
+
+            self.columns = {
+                "ID": "Res. ID",
+                "ИД Кредита": "Room ID",
+                "Дата операции": "Check In Time",
+                "Сумма опреации": "Check Out Time"
+            }
+
+            self.treeview = Treeview(
+                self,
+                columns=list(self.columns.keys()),
+                show="headings",
+                height=200,
+                selectmode="browse",
+            )
+
+            # Show the headings
+            self.treeview.heading(list(self.columns.keys())[0], text="ID")
+            self.treeview.heading(list(self.columns.keys())[1], text="ИД кредита")
+            self.treeview.heading(list(self.columns.keys())[2], text="Дата операции")
+            self.treeview.heading(list(self.columns.keys())[3], text="Сумма операции")
+            
+            # Set the column widths
+            self.treeview.column(list(self.columns.keys())[0], width=50)
+            self.treeview.column(list(self.columns.keys())[1], width=50)
+            self.treeview.column(list(self.columns.keys())[2], width=50)
+            self.treeview.column(list(self.columns.keys())[3], width=50)
+
+            self.treeview.place(x=248.0, y=75.0, width=610.0, height=180.0)
+
+            self.set_rows_in_treeview()
+
+            # Добавляем слушатель нажатей таблицы
+            self.treeview.bind("<<TreeviewSelect>>", self.on_treeview_select)
+
+            self.resizable(False, False)
+            self.mainloop()
+    
+    def set_rows_in_treeview(self):
+        # Очистка таблицы перед обновлением данных
+        for i in self.treeview.get_children():
+            self.treeview.delete(i)
+        
+        # Получение данных из базы данных
+        rows = db_connect.get_operations()
+        # Заполнение таблицы данными
+        for row in rows:
+            self.treeview.insert('', "end", values=row)
+
+    def on_treeview_select(self, event=None):
+        try:
+            self.treeview.selection()[0]
+        except:
+            return
+        
+        # Get the selected item
+        item = self.treeview.selection()[0]
+
+        values = self.treeview.item(item, "values")
+        
+        if values:
+            # Очистка полей
+            self.entry_1.delete(0, 'end')
+            self.entry_2.delete(0, 'end')
+            self.entry_3.delete(0, 'end')
+        
+            # Сохраняем id строки
+            self.id_row = values[0]
+
+            # Вставляем данные из выбранной строки
+            self.entry_1.set(values[1])
+            self.entry_3.insert(0, values[2])
+            self.entry_2.insert(0, values[3])
+    
+    def on_insert_item(self):
+        print("Log: add row")
+        db_connect.set_operation(
+                self.entry_1.get(),
+                self.entry_3.get(),
+                self.entry_2.get()
+        )
+
+        self.set_rows_in_treeview()
+    
+    def on_update_item(self):
+        print("Log: update row")
+        
+        db_connect.update_operation(
+                self.entry_1.get(),
+                self.entry_3.get(),
+                self.entry_2.get(),
+                self.id_row
+        )
+
+        self.set_rows_in_treeview()
+    
+    def on_delete_item(self):
+        print("Log: delete row")
+        db_connect.delete_operation(
+                self.id_row
+        )
+
+        self.set_rows_in_treeview()
